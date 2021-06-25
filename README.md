@@ -9,12 +9,12 @@ Assuming the default directory of /var/lib/motion
 this is set in /etc/motion/motion.conf - mine is different.
 in /var/lib/motion my cameras were automatically given numbers 01-06, yours may be different.
 
-> sudo cp camcount.sh /var/lib/motion # this is set in /etc/motion/motion.conf
-> sudo chmod +x /var/lib/motion/camcount.sh
-> sudo crontab -e
->> */10 * * * * /var/lib/motion/camcount.sh 01 # Camera's sub directory
-   */10 * * * * /var/lib/motion/camcount.sh 02 # et cetera
-   */10 * * * * /var/lib/motion/camcount.sh 03 # and so on
-   */10 * * * * /var/lib/motion/camcount.sh 04 # and so forth, you get the idea
+sudo cp camcount.sh /var/lib/motion # this is set in /etc/motion/motion.conf
+sudo chmod +x /var/lib/motion/camcount.sh
+sudo crontab -e
+ */10 * * * * /var/lib/motion/camcount.sh 01 # Camera's sub directory
+ */10 * * * * /var/lib/motion/camcount.sh 02 # et cetera
+ */10 * * * * /var/lib/motion/camcount.sh 03 # and so on
+ */10 * * * * /var/lib/motion/camcount.sh 04 # and so forth, you get the idea
 
 I'm continuing to work on this... I'm kind of new to scripting, in bash, but it does work!
