@@ -10,7 +10,9 @@ email=adminguy@localhost.net.com # your email address
 # $1 is called from the crontab, typically a number
 file=$directory/$1/nomail # First warning, it keeps you from being mailed every ten minutes
 file2=$directory/$1/nomail2 # Second warning, if you unpause and keep going...
-count=`ls -R $directory/$1 | grep -c jpg` # counts the files in the directory
+today=$(date "+%Y-%m-%d")
+# if you want it to count the camera's total and not just the day, remove "/$today"
+count=`ls -R $directory/$1/$today | grep -c jpg`
 
 if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
     # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
