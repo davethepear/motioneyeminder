@@ -1,4 +1,4 @@
-# motioneyeminder
+# MotionEye Minder
 This script written to monitor the number of files my poor Pi4 has in a camera's save directory, pause the camera's recording, and email me that a camera's gone crazy! Pi has issues with speed of loading images over 1500 pics per day. I haven't written the script further to isolate count by day...
 
 The camcount.sh should be placed in the base directory set in MotionEye. I mean, it doesn't necessarily HAVE to be, but it's where I put mine. You can put it where you like, just point the directories elsewhere.
