@@ -1,16 +1,19 @@
 #! /bin/sh
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
 
-directory=/media/motioneye # your picture directory. no closing slash, could cause issues
+directory=/var/lib/motion # your picture directory. no closing slash, could cause issues
 email=adminguy@localhost.net.com # your email address
 
 #### Nothing else should be messed with unless you know what you're doing! ####
+#### I added comments throuout the script on things and what they do ####
 
+# $1 is called from the crontab, typically a number
 file=$directory/$1/nomail # First warning, it keeps you from being mailed every ten minutes
 file2=$directory/$1/nomail2 # Second warning, if you unpause and keep going...
 count=`ls -R $directory/$1 | grep -c jpg` # counts the files in the directory
 
 if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
+    # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
     printf "The files may have been cleared, but you're too lazy to erase the nomail... \nI did it for you!" | mail -s "Lazy Admins..." $email
     if [ -f "$file" ]; then  rm $directory/$1/nomail 
     fi
@@ -19,21 +22,24 @@ if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
 fi
 
 if [ -f "$file" ] || [ -f "$file2" ]; then
-#   echo "a nomail file exists! sudo rm $directory/$1/nomail"
+#  a nomail file exists! don't email, just exit.
    exit 1
 fi
 
 # Okay, so maybe you were busy and just cleared the pictures... and then ignored it for a week. or unpaused it, because you wanted to keep recording. idk, it happens.
 if [ $count -ge 2500 ]; then
    touch $directory/$1/nomail2
-   printf "There's $count camera files from Camera $1 and I'm pausing recording on Camera $1. \nClear the files soon and don't forget to unpause the camera!" | mail -s "Camera $1 Files! HO-LEE-SHIT!" $email
+   # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
+   printf "There's $count camera files from Camera $1 and I'm pausing recording on Camera $1. \nClear the files soon and don't forget to unpause the camera!" | mail -s "Camera $1 Files! WTAF?!" $email
+   # If you run this from another server, change it to your server.
    wget -O- "http://localhost:7999/$1/detection/pause" >/dev/null
 fi
 
-# Pi has issues with speed of loading images over 1500 pics per day. I haven't written the script further to isolate count by day...
 if [ $count -ge 1500 ]; then
    touch $directory/$1/nomail
+   # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
    printf "There's $count camera files from Camera $1 and I've paused recording on Camera $1. \nYou'll have to clear file $directory/$1/nomail to continue. \nUnpause too!" | mail -s "Camera $1 Files!" $email
+   # If you run this from another server, change it to your server.
    wget -O- "http://localhost:7999/$1/detection/pause" >/dev/null
 fi
 # © Dave the Pear http://www.davethepear.net
