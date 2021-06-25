@@ -1,6 +1,8 @@
 #! /bin/sh
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
 
+numpix1500 # Normal number of pics per day you want. my pi get sloooow to load over 1500.
+maxpix=2500 # Max number... set it however you like, at your own risk!
 directory=/var/lib/motion # your picture directory. no closing slash, could cause issues
 email=adminguy@localhost.net.com # your email address
 
@@ -12,7 +14,11 @@ file=$directory/$1/nomail # First warning, it keeps you from being mailed every 
 file2=$directory/$1/nomail2 # Second warning, if you unpause and keep going...
 today=$(date "+%Y-%m-%d")
 # if you want it to count the camera's total and not just the day, remove "/$today"
-count=`ls -R $directory/$1/$today | grep -c jpg`
+if [ -d "$directory/$1/$today" ]; then
+   count=`ls -R $directory/$1/$today | grep -c jpg`
+  else
+   count=0
+fi
 
 if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
     # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
