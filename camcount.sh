@@ -29,8 +29,13 @@ if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
     fi
 fi
 
-if [ -f "$file" ] || [ -f "$file2" ]; then
+if [ -f "$file" ]; then
 #  a nomail file exists! don't email, just exit.
+   exit 1
+fi
+
+if [ -f "$file2" ]; then
+#  two have been sent, give up...
    exit 1
 fi
 
