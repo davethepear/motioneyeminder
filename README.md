@@ -33,3 +33,6 @@ put this in the cron:
 */10 * * * * /var/lib/motion/camcount.sh 04 # and so forth, you get the idea
 ```
 I'm continuing to work on this... I'm kind of new to scripting, in bash, but it does work! I'll probably continue to add to this.
+
+## Requirements
+motioneye (duh) https://github.com/ccrisan/motioneye/wiki/%28Install-On-Ubuntu-%2820.04-or-Newer%29
