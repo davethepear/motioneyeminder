@@ -44,7 +44,8 @@ fi
 
 if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
     # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
-    printf "The files may have been cleared, but you're too lazy to erase the nomail... \nI did it for you!" | mail -s "Lazy Admins..." $email
+    printf "The files may have been cleared, unpausing cameras." | mail -s "Camera recording resuming..." $email
+    wget -q -O - "http://localhost:7999/0/detection/start" >/dev/null
     if [ -f "$file" ]; then  rm $file
     fi
     if [ -f "$file2" ]; then  rm $file2
@@ -52,23 +53,23 @@ if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
 fi
 
 # Okay, so maybe you were busy and just cleared the pictures... and then ignored it for a week. or unpaused it, because you wanted to keep recording. idk, it happens.
-if [ $count -ge 2500 ]; then
-   touch $file2
-   if [ -f "$file2" ]; then
+if [ $count -ge $maxpix ]; then
+   if [ ! -f "$file2" ]; then
    # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
    printf "There's $count camera files from Camera $1 and I'm pausing recording on Camera $1. \nClear the files soon and don't forget to unpause the camera!" | mail -s "Camera $1 Files! WTAF?!" $email
    # If you run this from another server, change it to your server.
    wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
+   touch $file2
    fi
 fi
 
-if [ $count -ge 1500 ]; then
-   touch $file
+if [ $count -ge $numpix ]; then
    if [ ! -f "$file" ]; then
    # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
    printf "There's $count camera files from Camera $1 and I've paused recording on Camera $1. \nYou'll have to clear pictures from $directory/$1/$today to continue. \nunpause too!" | mail -s "Camera $1 Files!" $email
    # If you run this from another server, change it to your server.
    wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
+   touch $file
    fi
 fi
 # © Dave the Pear http://www.davethepear.net
