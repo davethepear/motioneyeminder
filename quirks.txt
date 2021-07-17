@@ -1,0 +1,2 @@
+I've noticed that the pause request goes to the server and on occasion it's either denied or ignored. 
+I've also noticed a few times that it's paused and keeps taking pictures.
