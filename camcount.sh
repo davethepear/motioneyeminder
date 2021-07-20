@@ -3,9 +3,10 @@
 full=80 # Set the percentage of disk use before I nag you about it.
 numpix=1500 # Normal number of pics per day you want. my pi get sloooow to load over 1500.
 maxpix=2500 # Max number... set it however you like, at your own risk!
+omgwtf=5000 # The point when pausing hasn't slowed the flow, it just sends another request to stop
 directory=/var/lib/motion # your picture directory. no closing slash, could cause issues
 email=adminguy@localhost.net.com # your email address
-
+# Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
 
 #### Nothing else should be messed with unless you know what you're doing! ####
 #### I added comments throuout the script on things and what they do ####
@@ -40,6 +41,12 @@ if [ -d "$directory/$1/$today" ]; then
    count=`ls -R $directory/$1/$today | grep -c jpg`
   else
    count=0
+fi
+
+# Something has gone haywire
+if [ $count -gt $omgwtf ]; then
+   wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
+   exit 1
 fi
 
 if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
