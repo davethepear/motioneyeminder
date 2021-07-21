@@ -27,7 +27,7 @@ sudo crontab -e
 ```
 put this in the cron:
 ```bash
-*/10 * * * * /var/lib/motion/camcount.sh 01 # Camera's sub directory
+*/10 * * * * /var/lib/motion/camcount.sh 01 # location of camcount.sh and camera's sub directory
 */10 * * * * /var/lib/motion/camcount.sh 02 # et cetera
 */10 * * * * /var/lib/motion/camcount.sh 03 # and so on
 */10 * * * * /var/lib/motion/camcount.sh 04 # and so forth, you get the idea
@@ -35,5 +35,5 @@ put this in the cron:
 I'm continuing to work on this... I'm kind of new to scripting, in bash, but it does work! I'll probably continue to add to this.
 
 ## Requirements
-motioneye (duh) https://github.com/ccrisan/motioneye/wiki/%28Install-On-Ubuntu-%2820.04-or-Newer%29
-postfix to send email
+- motioneye (duh) https://github.com/ccrisan/motioneye/wiki/%28Install-On-Ubuntu-%2820.04-or-Newer%29
+- postfix to send email
