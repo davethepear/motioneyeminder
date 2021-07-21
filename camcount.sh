@@ -51,7 +51,7 @@ fi
 
 if [ -f "$file" ] || [ -f "$file2" ] && [ $count -lt 500 ]; then
     # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
-    printf "The files may have been cleared, unpausing cameras." | mail -s "Camera recording resuming..." $email
+    printf "The files may have been cleared, unpausing cameras on $(hostname)." | mail -s "Camera recording on $(hostname) resuming..." $email
     wget -q -O - "http://localhost:7999/0/detection/start" >/dev/null
     if [ -f "$file" ]; then  rm $file
     fi
@@ -63,7 +63,7 @@ fi
 if [ $count -ge $maxpix ]; then
    if [ ! -f "$file2" ]; then
    # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
-   printf "There's $count camera files from Camera $1 and I'm pausing recording on Camera $1. \nClear the files soon and don't forget to unpause the camera!" | mail -s "Camera $1 Files! WTAF?!" $email
+   printf "There's $count camera files from Camera $1 and I'm pausing recording from Camera $1 on $(hostname). \nClear the files soon and don't forget to unpause the camera!" | mail -s "Camera $1 files on $(hostname)! WTAF?!" $email
    # If you run this from another server, change it to your server.
    wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
    touch $file2
@@ -73,7 +73,7 @@ fi
 if [ $count -ge $numpix ]; then
    if [ ! -f "$file" ]; then
    # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
-   printf "There's $count camera files from Camera $1 and I've paused recording on Camera $1. \nYou'll have to clear pictures from $directory/$1/$today to continue. \nunpause too!" | mail -s "Camera $1 Files!" $email
+   printf "There's $count camera files from Camera $1 and I've paused recording from Camera $1 on $(hostname). \nYou'll have to clear pictures from $directory/$1/$today to continue. \nunpause too!" | mail -s "Camera $1 files on $(hostname)!" $email
    # If you run this from another server, change it to your server.
    wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
    touch $file
