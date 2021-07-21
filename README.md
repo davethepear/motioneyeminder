@@ -36,3 +36,4 @@ I'm continuing to work on this... I'm kind of new to scripting, in bash, but it 
 
 ## Requirements
 motioneye (duh) https://github.com/ccrisan/motioneye/wiki/%28Install-On-Ubuntu-%2820.04-or-Newer%29
+postfix to send email
