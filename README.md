@@ -14,6 +14,7 @@ in `/var/lib/motion` my cameras were automatically given numbers 01-06, yours ma
 
 ```
 sudo cp camcount.sh /var/lib/motion
+chown -R motion /var/lib/motioneye/
 ```
 this is set by editing: `sudo nano /etc/motion/motion.conf` (or your favorite editor)
 
@@ -21,9 +22,9 @@ Make the script executable
 ```
 sudo chmod +x /var/lib/motion/camcount.sh
 ```
-add it to cron
+add it to cron, I have used it in root's crontab, trying it now in motion's
 ```
-sudo crontab -e
+sudo crontab -e -u motion
 ```
 put this in the cron:
 ```bash
