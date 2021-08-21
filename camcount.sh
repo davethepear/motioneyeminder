@@ -1,3 +1,4 @@
+#!/bin/bash
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
 
 full=80 # Set the percentage of disk use before I nag you about it.
@@ -79,4 +80,5 @@ if [ $count -ge $numpix ]; then
    touch $file
    fi
 fi
+exit 0
 # © Dave the Pear http://www.davethepear.net
