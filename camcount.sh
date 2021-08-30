@@ -35,9 +35,9 @@ done
 
 # loop start, wish me luck!
 counter=1
-echo "checking camera $counter"
 while [ $counter -le $cameras ]
   do
+echo "checking camera $counter"
 file=$directory/0$counter/nomail # First warning, it keeps you from being mailed every ten minutes
 file2=$directory/0$counter/nomail2 # Second warning, if you unpause and keep going...
 today=$(date "+%Y-%m-%d")
