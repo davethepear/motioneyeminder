@@ -3,7 +3,17 @@ This script written to monitor the number of files my poor Pi4 has in a camera's
 
 It also keeps track of the drive space to where you save the pictures and will pause the recordings at a set percentage.
 
-The camcount.sh should be placed in the base directory set in MotionEye. I mean, it doesn't necessarily HAVE to be, but it's where I put mine. You can put it where you like, just point the directories elsewhere.
+The camcount.sh should be placed in the base directory set in MotionEye. I mean, it doesn't necessarily HAVE to be, but it's where I put mine. You can put it where you like, just point the directories elsewhere. Change the variables in camcount.sh to fit your needs:
+```
+cameras=3 # Set the number of cameras you have
+full=80 # Set the percentage of disk use before I nag you about it.
+numpix=1500 # Normal number of pics per day you want. my pi get sloooow to load over 1500.
+maxpix=2500 # Max number... set it however you like, at your own risk!
+omgwtf=5000 # The point when pausing hasn't slowed the flow, it just sends another request to stop
+directory=/var/lib/motioneye # your picture directory. no closing slash, could cause issues
+email=eat@joes.cafe # your email address
+```
+that should be all that's needed in this file. if you have more than 9 cameras on a pi, well, there will be problems unless you add a leading zero to 10 to be 010. 011, 012... some day I may change it to just read the directory names.
 
 You will need to add some things to your crontab as well.
 If you got motioneye working, this should be a breeeeeeze!
