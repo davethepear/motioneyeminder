@@ -1,12 +1,12 @@
 #!/bin/bash
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
-
+cameras=3 # Set the number of cameras you have
 full=80 # Set the percentage of disk use before I nag you about it.
 numpix=1500 # Normal number of pics per day you want. my pi get sloooow to load over 1500.
 maxpix=2500 # Max number... set it however you like, at your own risk!
 omgwtf=5000 # The point when pausing hasn't slowed the flow, it just sends another request to stop
-directory=/var/lib/motion # your picture directory. no closing slash, could cause issues
-email=adminguy@localhost.net.com # your email address
+directory=/var/lib/motioneye # your picture directory. no closing slash, could cause issues
+email=admin@locahost.com.net # your email address
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
 
 #### Nothing else should be messed with unless you know what you're doing! ####
@@ -33,20 +33,24 @@ do
   fi
 done
 
-# $1 is called from the crontab, typically a number
-file=$directory/$1/nomail # First warning, it keeps you from being mailed every ten minutes
-file2=$directory/$1/nomail2 # Second warning, if you unpause and keep going...
+# loop start, wish me luck!
+counter=1
+echo "checking camera $counter"
+while [ $counter -le $cameras ]
+  do
+file=$directory/0$counter/nomail # First warning, it keeps you from being mailed every ten minutes
+file2=$directory/0$counter/nomail2 # Second warning, if you unpause and keep going...
 today=$(date "+%Y-%m-%d")
 # if you want it to count the camera's total and not just the day, remove "/$today"
-if [ -d "$directory/$1/$today" ]; then
-   count=`ls -R $directory/$1/$today | grep -c jpg`
+if [ -d "$directory/0$counter/$today" ]; then
+   count=`ls -R $directory/0$counter/$today | grep -c jpg`
   else
    count=0
 fi
 
 # Something has gone haywire
 if [ $count -gt $omgwtf ]; then
-   wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
+   wget -q -O - "http://localhost:7999/0$counter/detection/pause" >/dev/null
    exit 1
 fi
 
@@ -64,9 +68,9 @@ fi
 if [ $count -ge $maxpix ]; then
    if [ ! -f "$file2" ]; then
    # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
-   printf "There's $count camera files from Camera $1 and I'm pausing recording from Camera $1 on $(hostname). \nClear the files soon and don't forget to unpause the camera!" | mail -s "Camera $1 files on $(hostname)! WTAF?!" $email
+   printf "There's $count camera files from Camera 0$counter and I'm pausing recording from Camera 0$counter on $(hostname). \nClear the files soon and don't forget to unpause the camera!" | mail -s "Camera 0$counter files on $(hostname)! WTAF?!" $email
    # If you run this from another server, change it to your server.
-   wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
+   wget -q -O - "http://localhost:7999/0$counter/detection/pause" >/dev/null
    touch $file2
    fi
 fi
@@ -74,11 +78,13 @@ fi
 if [ $count -ge $numpix ]; then
    if [ ! -f "$file" ]; then
    # You can change the message it sends to you. I'm a weird admin, so I send myself weird messages.
-   printf "There's $count camera files from Camera $1 and I've paused recording from Camera $1 on $(hostname). \nYou'll have to clear pictures from $directory/$1/$today to continue. \nunpause too!" | mail -s "Camera $1 files on $(hostname)!" $email
+   printf "There's $count camera files from Camera 0$counter and I've paused recording from Camera 0$counter on $(hostname). \nYou'll have to clear pictures from $directory/0$counter/$today to continue. \nunpause too!" | mail -s "Camera 0$counter files on $(hostname)!" $email
    # If you run this from another server, change it to your server.
-   wget -q -O - "http://localhost:7999/$1/detection/pause" >/dev/null
+   wget -q -O - "http://localhost:7999/0$counter/detection/pause" >/dev/null
    touch $file
    fi
 fi
+   ((counter++))
+  done
 exit 0
 # © Dave the Pear http://www.davethepear.net
