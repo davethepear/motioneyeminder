@@ -1,4 +1,5 @@
 ## What I've done
+- added loop, so single cron call is required. a "$1" may have been overwriting another.
 - added an omgwtf to the count since motion seems to ignore some pause requests
 - added second stage of files (need to find way to make it easier to unpause)
 - added disk fullness checker upper
