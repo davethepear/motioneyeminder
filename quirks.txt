@@ -1,2 +1,5 @@
-I've noticed that the pause request goes to the server and on occasion it's either denied or ignored. 
-I've also noticed a few times that it's paused and keeps taking pictures.
+- If you're getting email every 5 or 10 mins about a particular camera, it's because Motion user doesn't have write access to that particular directory. chown motion /path/to/the/camera/04
+
+- I've noticed that the pause request goes to the server and on occasion it's either denied or ignored. 
+
+- I've also noticed a few times that it's paused and keeps taking pictures.
