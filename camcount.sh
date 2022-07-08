@@ -1,12 +1,17 @@
 #!/bin/bash
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
-cameras=3 # Set the number of cameras you have
+# I have my cameras set to record to directories like 01, 02, etc... the default is now "Camera1, Camera2"
+# I may make another script for that, or add a preference in here.
+#cameras=5 # Set the number of cameras you have - now autoset
 full=80 # Set the percentage of disk use before I nag you about it.
 numpix=1500 # Normal number of pics per day you want. my pi get sloooow to load over 1500.
 maxpix=2500 # Max number... set it however you like, at your own risk!
 omgwtf=5000 # The point when pausing hasn't slowed the flow, it just sends another request to stop
 directory=/var/lib/motioneye # your picture directory. no closing slash, could cause issues
-email=admin@locahost.com.net # your email address
+email=user@host.com # your email address
+
+cameras=$(ls -d $directory/0* | grep -c 0)
+
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
 
 #### Nothing else should be messed with unless you know what you're doing! ####
