@@ -5,7 +5,8 @@ It also keeps track of the drive space to where you save the pictures and will p
 
 The camcount.sh should be placed in the base directory set in MotionEye. I mean, it doesn't necessarily HAVE to be, but it's where I put mine. You can put it where you like, just point the directories elsewhere. Change the variables in camcount.sh to fit your needs:
 ```
-cameras=3 # Set the number of cameras you have
+# I have my cameras set to record to directories like 01, 02, etc... the default is now "Camera1, Camera2"
+# I may make another script for that, or add a preference in here
 full=80 # Set the percentage of disk use before I nag you about it.
 numpix=1500 # Normal number of pics per day you want. my pi get sloooow to load over 1500.
 maxpix=2500 # Max number... set it however you like, at your own risk!
