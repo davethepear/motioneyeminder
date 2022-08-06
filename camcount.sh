@@ -10,6 +10,7 @@ omgwtf=5000 # The point when pausing hasn't slowed the flow, it just sends anoth
 directory=/var/lib/motioneye # your picture directory. no closing slash, could cause issues
 email=user@host.com # your email address
 
+# so camera directories have to start with 0, by default. I don't see a pi running more than 9 cameras.
 cameras=$(ls -d $directory/0* | grep -c 0)
 
 # Written for my Pi's MotionEye server. Some days it goes crazy with shadows and records thousands of pics
