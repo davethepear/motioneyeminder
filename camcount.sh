@@ -43,14 +43,14 @@ done
 counter=1
 while [ $counter -le $cameras ]
   do
-echo "checking camera $counter"
 file=$directory/0$counter/nomail # First warning, it keeps you from being mailed every ten minutes
 file2=$directory/0$counter/nomail2 # Second warning, if you unpause and keep going...
 today=$(date "+%Y-%m-%d")
 # if you want it to count the camera's total and not just the day, remove "/$today"
 if [ -d "$directory/0$counter/$today" ]; then
    count=`ls -R $directory/0$counter/$today | grep -c jpg`
-  else
+   echo "Camera $counter has $count pictures"
+else
    count=0
 fi
 
