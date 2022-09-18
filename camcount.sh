@@ -47,6 +47,7 @@ today=$(date "+%Y-%m-%d")
 if [ -d "$directory/Camera$counter/$today" ]; then
    count=`ls -R $directory/Camera$counter/$today | grep -c jpg`
    echo "Camera $counter has $count pictures"
+   # echo "$HOSTNAME - $counter - $count" > /var/www/html/cam$counter.txt
   else
    count=0
 fi
