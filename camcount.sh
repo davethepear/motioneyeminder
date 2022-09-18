@@ -4,7 +4,7 @@ full=80 # Set the percentage of disk use before I nag you about it.
 numpix=1500 # Normal number of pics per day you want. my pi get sloooow to load over 1500.
 maxpix=2500 # Max number... set it however you like, at your own risk!
 omgwtf=5000 # The point when pausing hasn't slowed the flow, it just sends another request to stop
-directory=/media/dave/AuxDrive/motioneye # your picture directory. no closing slash, could cause issues
+directory=/var/lib/motioneye # your picture directory. no closing slash, could cause issues
 email=eat@joes.cafe # your email address
 
 # so camera directories have to start with 0, by default. I don't see a pi running more than 9 cameras.
